@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>心月互联 - 登录</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .login-btn {
+            display: inline-block;
+            background: #1e88e5;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+        .login-btn:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+        }
+        .welcome-text {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>欢迎来到心月互联</h1>
+    <p class="welcome-text">请选择您的登录方式</p>
+    <a href="https://qq.wch666.com/api/qq.php?token=YOUR_TOKEN_HERE&redirect_uri=http://localhost:8080/#/qqCallback" class="login-btn">QQ登录</a>
+</div>
+</body>
+</html>

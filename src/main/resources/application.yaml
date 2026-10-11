@@ -1,0 +1,109 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:pet_shop}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  security:
+    oauth2:
+      client:
+        registration:
+          qq:
+            client-id: ${QQ_CLIENT_ID:}
+            client-secret: ${QQ_CLIENT_SECRET:}
+            provider: qq
+            client-name: QQ登录
+            authorization-grant-type: authorization_code
+            client-authentication-method: post
+            scope: get_user_info,list_album,upload_pic,do_like
+            redirect-uri: "{baseUrl}/register/social/{registrationId}"
+        provider:
+          qq:
+            authorization-uri: https://graph.qq.com/oauth2.0/authorize
+            token-uri: https://graph.qq.com/oauth2.0/token
+            # 配置为QQ获取OpenId的Url
+            user-info-uri: https://graph.qq.com/oauth2.0/me
+            user-name-attribute: "nickname"
+
+#邮件发送相关配置
+  mail:
+    port: 465
+    default-encoding: utf-8
+    host: smtp.163.com
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            required: false
+            protocols: TLSv1.2
+        debug: false
+mybatis-flex:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    print-banner: off
+
+server:
+  port: 9170
+
+aliyun:
+  oss:
+    # OSS服务的节点地址
+    endPoint: ${OSS_ENDPOINT:}
+    # 用户的Access Key ID，用于身份验证
+    accessKeyId: ${OSS_ACCESS_KEY_ID:}
+    # 用户的Access Key Secret，用于身份验证
+    accessKeySecret: ${OSS_ACCESS_KEY_SECRET:}
+    # 存储数据的地方
+    accessPre: ${OSS_ACCESS_PREFIX:}
+    bucketName: ${OSS_BUCKET_NAME:}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.petshop.petshop_backend
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    # 开启生产环境屏蔽（启用访问控制）
+#  production: true
+#  basic:
+#    enable: true
+#    username: "admin"
+#    password: "1579230"
+
+#大模型key（火山方舟）
+openapi:
+  arkapikey: ${ARK_API_KEY:}
+  arkbaseurl: "https://ark.cn-beijing.volces.com/api/v3"
+
+#百度智能云千帆
+baidu:
+  cloud:
+    api-key: ${BAIDU_API_KEY:}
+    secret-key: ${BAIDU_SECRET_KEY:}
+    base-url: "https://qianfan.baidubce.com"
+    app-id: ${BAIDU_APP_ID:}
+
+#支付宝沙箱支付
+pay:
+  alipay:
+    APP_ID: ${ALIPAY_APP_ID:}
+    APP_PRIVATE_KEY: ${ALIPAY_APP_PRIVATE_KEY:}
+    ALIPAY_PUBLIC_KEY: ${ALIPAY_PUBLIC_KEY:}
+  server_address: ${PAY_SERVER_ADDRESS:http://localhost:9170}
+  secretKey: ${PAY_SECRET_KEY:}

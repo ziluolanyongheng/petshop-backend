@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>QQ登录回调</title>
+    <script>
+        // 获取URL参数
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const code = getUrlParam('code');
+            const msg = getUrlParam('msg');
+            fetch(`/qq/callback?code=${code}&msg=${msg||''}`)
+                .then(res => res.json())
+                .then(data => {
+                    if(data.code === 100 && data.data && data.data.token) {
+                        // 存储token和用户信息到localStorage
+                        localStorage.setItem('token', data.data.token);
+                        localStorage.setItem('userInfo', JSON.stringify({
+                            userId: data.data.userId,
+                            userName: data.data.userName
+                        }));
+                        // 兼容uni-app H5
+                        if (window.uni && typeof window.uni.setStorageSync === 'function') {
+                            window.uni.setStorageSync('token', data.data.token);
+                            window.uni.setStorageSync('userInfo', {
+                                userId: data.data.userId,
+                                userName: data.data.userName
+                            });
+                        }
+                        // 跳转到首页并强制刷新
+                        window.location.replace('http://localhost:8080');
+                    } else {
+                        // 登录失败，跳转首页并提示
+                        window.location.replace('http://localhost:8080?loginError=' + encodeURIComponent(data.message || 'QQ登录失败'));
+                    }
+                });
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
